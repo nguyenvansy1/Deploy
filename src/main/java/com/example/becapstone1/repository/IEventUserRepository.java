@@ -32,8 +32,8 @@ public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
 
 
 
-    @Query(value = "SELECT * FROM event_user where event_id = :idEvent and user_id= :idUser;", nativeQuery = true)
-    EventUser getEventUserByEventAndUser(@Param("idEvent") Long idEvent, @Param("idUser") Long idUser);
+    @Query(value = "SELECT * FROM event_user where event_id = :id and user_id= :code", nativeQuery = true)
+    EventUser getEventUserByEventAndUser(@Param("id") Long idEvent, @Param("code") Long idUser);
 
     @Modifying
     @Query(value = "insert into event_user (event_time_checkin,event_user_status,event_id,user_id) values (?1,1,?2,?3)", nativeQuery = true)

@@ -184,10 +184,13 @@ public class EventController {
     public ResponseEntity<?> addEventUser(@RequestParam("id") Long id,
                                           @RequestParam("code") Long code) {
         try {
+            System.out.println(id);
+            System.out.println(code);
             Date date = new Date();
             SimpleDateFormat format = new SimpleDateFormat(
                     "yyyy-MM-dd HH:mm:ss");
             EventUser eventUser = eventUserService.getEventUserByEventAndUser(id, code);
+            System.out.println(eventUser);
             if (eventUser == null) {
                 eventUserService.addEventUser(format.format(date),id,code);
             } else {
@@ -198,6 +201,7 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e)
         {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
