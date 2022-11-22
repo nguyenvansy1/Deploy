@@ -191,6 +191,7 @@ public class EventController {
             if (eventUser == null) {
                 eventUserService.addEventUser(format.format(date),id,code);
             } else {
+                if (eventUser.getStatus() == false)
                 eventUser.setStatus(true);
                 eventUserService.addEventUser1(eventUser);
             }
