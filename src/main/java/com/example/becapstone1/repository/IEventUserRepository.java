@@ -1,6 +1,7 @@
 package com.example.becapstone1.repository;
 
 import com.example.becapstone1.model.event.EventUser;
+import com.example.becapstone1.model.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,6 +29,8 @@ public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
     @Query(value = "select * from event_user\n" +
             "where event_id = :id", nativeQuery = true)
     List<EventUser> getListUserByEvent1(@Param("id") Long id);
+
+
 
     @Query(value = "SELECT * FROM event_user where event_id = :idEvent and user_id= :idUser and event_user_status = 0;", nativeQuery = true)
     EventUser getEventUserByEventAndUser(@Param("idEvent") Long idEvent, @Param("idUser") Long idUser);

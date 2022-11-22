@@ -2,9 +2,11 @@ package com.example.becapstone1.controller;
 
 import com.example.becapstone1.model.event.Event;
 import com.example.becapstone1.model.event.EventUser;
+import com.example.becapstone1.model.user.User;
 import com.example.becapstone1.service.Impl.EventService;
 import com.example.becapstone1.service.Impl.EventUserService;
 import com.example.becapstone1.service.Impl.ExcelServiceImpl;
+import com.example.becapstone1.service.Impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
@@ -48,6 +50,9 @@ public class EventController {
 
     @Autowired
     private ExcelServiceImpl excelService;
+
+    @Autowired
+    private UserService userService;
 
     /** Get list event. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -125,7 +130,7 @@ public class EventController {
         }
     }
 
-    /** Get list event by user code. */
+    /** Get list user by event id. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/userByEvent")
     public ResponseEntity<Page<EventUser>> getUserByEvent(@RequestParam("page") Integer page,
@@ -174,6 +179,7 @@ public class EventController {
     }
 
     /** Student attendance by event. */
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     @PostMapping("/addEventUser")
     public ResponseEntity<?> addEventUser(@RequestParam("id") Long id,
                                           @RequestParam("code") Long code) {
@@ -193,6 +199,14 @@ public class EventController {
         {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /** Get list user by event id ADROID. */
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @GetMapping("/userByEvent1")
+    public ResponseEntity<List<User>> getUserByEvent1 (@RequestParam("id") Long id) {
+        List<User> users = userService.getListUserByEvent(id);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/import/{list}")

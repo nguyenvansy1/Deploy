@@ -24,4 +24,6 @@ public interface IUserService {
     Integer getAmountUser();
 
     List<User> findUserCheckinByEventId(Long id);
+
+    List<User> getListUserByEvent(Long id);
 }

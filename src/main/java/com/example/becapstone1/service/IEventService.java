@@ -1,6 +1,7 @@
 package com.example.becapstone1.service;
 
 import com.example.becapstone1.model.event.Event;
+import com.example.becapstone1.model.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 
@@ -22,4 +23,6 @@ public interface IEventService {
     Event findEventById(Long id);
 
     void deleteEventByFlag( Long id);
+
+
 }

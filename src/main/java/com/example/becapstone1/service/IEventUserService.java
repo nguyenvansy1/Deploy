@@ -1,6 +1,7 @@
 package com.example.becapstone1.service;
 
 import com.example.becapstone1.model.event.EventUser;
+import com.example.becapstone1.model.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 
@@ -20,4 +21,6 @@ public interface IEventUserService {
     void addEventUser(String time, Long id, Long code);
 
     void addEventUser1(EventUser eventUser);
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.becapstone1.service.Impl;
 
 import com.example.becapstone1.model.event.EventUser;
+import com.example.becapstone1.model.user.User;
 import com.example.becapstone1.repository.IEventUserRepository;
 import com.example.becapstone1.service.IEventUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,8 @@ public class EventUserService implements IEventUserService {
     public void addEventUser1(EventUser eventUser) {
         eventUserRepository.save(eventUser);
     }
+
+
 }
 
 

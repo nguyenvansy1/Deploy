@@ -44,6 +44,11 @@ public interface IUserRepository extends JpaRepository<User,Long> {
             "where event_user.event_user_status = 1 and event_user.event_id = :id\n" +
             "group by user_code;", nativeQuery = true)
     List<User> findUserCheckinByEventId(@Param("id") Long id);
+
+    @Query(value = "select user.user_code, user.user_address, user.user_birth_day,user.user_gender, user.user_identity_card, user.user_name , user.user_phone , user.user_since, user.user_account_id, user.user_class_id, user.user_course_id, user.user_majors_id  from user\n" +
+            "join event_user on user.user_code = event_user.user_id  \n" +
+            "where event_id = :id", nativeQuery = true)
+    List<User> getListUserByEvent(@Param("id") Long id);
 }
 
 

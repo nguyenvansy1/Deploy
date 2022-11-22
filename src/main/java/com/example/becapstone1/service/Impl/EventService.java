@@ -3,6 +3,7 @@ package com.example.becapstone1.service.Impl;
 import com.example.becapstone1.exception.EventNotFoundException;
 import com.example.becapstone1.model.event.DataMail;
 import com.example.becapstone1.model.event.Event;
+import com.example.becapstone1.model.user.User;
 import com.example.becapstone1.repository.IAccountRepository;
 import com.example.becapstone1.repository.IEventRepository;
 import com.example.becapstone1.service.IEventService;
@@ -101,4 +102,6 @@ public class EventService implements IEventService {
     public void deleteEventByFlag(Long id) {
         iEventRepository.deleteEventByFlag(id);
     }
+
+
 }

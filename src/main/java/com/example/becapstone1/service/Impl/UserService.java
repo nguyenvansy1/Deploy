@@ -85,5 +85,8 @@ public class UserService implements IUserService {
         return userRepository.findUserCheckinByEventId(id);
     }
 
-
+    @Override
+    public List<User> getListUserByEvent(Long id) {
+        return userRepository.getListUserByEvent(id);
+    }
 }

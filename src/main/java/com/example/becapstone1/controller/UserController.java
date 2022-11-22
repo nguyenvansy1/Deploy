@@ -103,7 +103,7 @@ public class UserController {
     }
 
     /** Find user by id. */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     @GetMapping("/find/{code}")
     public ResponseEntity<?> findUserByCode(@PathVariable("code") Long code) {
         try {
@@ -175,15 +175,15 @@ public class UserController {
         }
     }
 
-    /** Find user by code ANDROID. */
-    @GetMapping("/find1/{code}")
-    public ResponseEntity<?> findUserByCode1(@PathVariable("code") Long code) {
-        try {
-            User user =  userService.findUserByCode(code);
-            return new ResponseEntity<>(user,HttpStatus.OK);
-        }catch (Exception e)
-        {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
+//    /** Find user by code ANDROID. */
+//    @GetMapping("/find1/{code}")
+//    public ResponseEntity<?> findUserByCode1(@PathVariable("code") Long code) {
+//        try {
+//            User user =  userService.findUserByCode(code);
+//            return new ResponseEntity<>(user,HttpStatus.OK);
+//        }catch (Exception e)
+//        {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//    }
 }
