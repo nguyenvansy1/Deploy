@@ -21,11 +21,11 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     @Query(value = "Select * from user where user_code like :name or user_name like BINARY :name", nativeQuery = true)
     Page<User> findByCodeContainingOrNameContaining(@Param("name") String name, Pageable pageable);
 
-    @Query(value = "select month(event_date) as Month , count(event_date) as Times  from event_user\n" +
+    @Query(value = "select month(event_end_time) as Month , count(event_end_time) as Times  from event_user\n" +
             "left join event on event_user.event_id = event.event_id\n" +
-            "where year(event_date) = year(curdate())\n" +
-            "group by month(event_date)\n" +
-            "order by month(event_date);", nativeQuery = true)
+            "where year(event_end_time) = year(curdate())\n" +
+            "group by month(event_end_time)\n" +
+            "order by month(event_end_time);", nativeQuery = true)
     Integer[][] getDataUser();
 
     @Query(value = "select count(user_id) as Amount_Student from event_user\n" +
@@ -49,6 +49,11 @@ public interface IUserRepository extends JpaRepository<User,Long> {
             "join event_user on user.user_code = event_user.user_id \n" +
             "where event_user.event_id = :id and event_user.event_user_status = 1", nativeQuery = true)
     List<User> getListUserByEvent(@Param("id") Long id);
+
+    @Modifying
+    @Query(value = "UPDATE user SET user_avatar = :avatar WHERE user_code = :code", nativeQuery = true)
+    void updateAvatar(@Param("avatar") String avatar ,@Param("code") Long code );
+
 }
 
 

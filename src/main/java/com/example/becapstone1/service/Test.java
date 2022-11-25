@@ -19,5 +19,10 @@ public class Test {
 //                "yyyy-MM-dd HH:mm:ss");
 //        System.out.println(format.format(date));
 //          convert(1.5);
+        for (int i = 0 ; i < 5 ; i++){
+            double num = Math.floor(Math.random() * 10) + 1;
+            System.out.println(num);
+        }
+
     }
 }

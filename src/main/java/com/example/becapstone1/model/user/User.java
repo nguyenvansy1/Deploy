@@ -30,6 +30,9 @@ public class User  {
     @Column(name = "user_since")
     private LocalDate since;
 
+    @Column(name = "user_avatar")
+    private String avatar;
+
     @Column(name = "user_address")
     private String address;
 
@@ -51,7 +54,7 @@ public class User  {
     public User() {
     }
 
-    public User(Long code, String name, Integer identityCard, String phone, LocalDate birthDay, Boolean gender, LocalDate since, String address,  Course course, Majors majors, Class classUser, Account account) {
+    public User(Long code, String name, Integer identityCard, String phone, LocalDate birthDay, Boolean gender, LocalDate since, String avatar, String address, Course course, Majors majors, Class classUser, Account account) {
         this.code = code;
         this.name = name;
         this.identityCard = identityCard;
@@ -59,6 +62,7 @@ public class User  {
         this.birthDay = birthDay;
         this.gender = gender;
         this.since = since;
+        this.avatar = avatar;
         this.address = address;
         this.course = course;
         this.majors = majors;
@@ -162,4 +166,11 @@ public class User  {
         this.address = address;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }

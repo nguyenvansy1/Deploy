@@ -26,4 +26,6 @@ public interface IUserService {
     List<User> findUserCheckinByEventId(Long id);
 
     List<User> getListUserByEvent(Long id);
+
+    void updateAvatar(String avatar , Long code );
 }

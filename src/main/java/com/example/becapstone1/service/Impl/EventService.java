@@ -103,5 +103,8 @@ public class EventService implements IEventService {
         iEventRepository.deleteEventByFlag(id);
     }
 
-
+    @Override
+    public Event getEventCheckin(Long id) {
+        return iEventRepository.getEventCheckin(id);
+    }
 }

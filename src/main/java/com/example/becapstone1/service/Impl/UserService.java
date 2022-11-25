@@ -89,4 +89,9 @@ public class UserService implements IUserService {
     public List<User> getListUserByEvent(Long id) {
         return userRepository.getListUserByEvent(id);
     }
+
+    @Override
+    public void updateAvatar(String avatar, Long code) {
+        userRepository.updateAvatar(avatar, code);
+    }
 }

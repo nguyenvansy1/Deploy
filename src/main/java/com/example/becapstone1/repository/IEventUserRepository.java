@@ -38,4 +38,13 @@ public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
     @Modifying
     @Query(value = "insert into event_user (event_time_checkin,event_user_status,event_id,user_id) values (?1,1,?2,?3)", nativeQuery = true)
     void addEventUser(String time, Long id, Long code);
+
+    @Query(value = "select * from event_user where month(event_time_checkin) = month(now()) and year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
+    List<EventUser> filterDay();
+
+    @Query(value = "select * from event_user where year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
+    List<EventUser> filterMonth();
+
+    @Query(value = "select * from event_user order by event_time_checkin DESC", nativeQuery = true)
+    List<EventUser> filterYear();
 }

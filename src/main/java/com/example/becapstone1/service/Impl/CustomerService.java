@@ -44,4 +44,9 @@ public class CustomerService implements ICustomerService {
     public List<Customer> findAll() {
         return iCustomerRepository.findAll();
     }
+
+    @Override
+    public Customer findByAccountId(Long id) {
+        return iCustomerRepository.findByAccountId(id);
+    }
 }

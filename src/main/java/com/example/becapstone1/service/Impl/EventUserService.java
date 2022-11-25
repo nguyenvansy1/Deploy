@@ -53,6 +53,21 @@ public class EventUserService implements IEventUserService {
         eventUserRepository.save(eventUser);
     }
 
+    @Override
+    public List<EventUser> filterDay() {
+        return eventUserRepository.filterDay();
+    }
+
+    @Override
+    public List<EventUser> filterMonth() {
+        return eventUserRepository.filterMonth();
+    }
+
+    @Override
+    public List<EventUser> filterYear() {
+        return eventUserRepository.filterYear();
+    }
+
 
 }
 

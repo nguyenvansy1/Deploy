@@ -175,6 +175,19 @@ public class UserController {
         }
     }
 
+
+    /** Update avatar user. */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/updateAvatar")
+    public ResponseEntity<?> updateAvatar(@RequestParam("avatar") String avatar,
+                                                 @RequestParam("code") Long code) {
+        try {
+            userService.updateAvatar(avatar, code);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 //    /** Find user by code ANDROID. */
 //    @GetMapping("/find1/{code}")
 //    public ResponseEntity<?> findUserByCode1(@PathVariable("code") Long code) {

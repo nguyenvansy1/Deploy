@@ -22,5 +22,9 @@ public interface IEventUserService {
 
     void addEventUser1(EventUser eventUser);
 
+    List<EventUser> filterDay();
 
+    List<EventUser> filterMonth();
+
+    List<EventUser> filterYear();
 }

@@ -2,6 +2,7 @@ package com.example.becapstone1.model.event;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -20,14 +21,11 @@ public class Event {
     @Column(name = "event_content")
     private String content;
 
-    @Column(name = "event_date")
-    private LocalDate date;
-
     @Column(name = "event_start_time",columnDefinition = "Time")
-    private String startTime;
+    private Date startTime;
 
     @Column(name = "event_end_time",columnDefinition = "Time")
-    private String endTime;
+    private Date endTime;
 
     @Column(name = "event_flag")
     private Boolean flag;
@@ -39,12 +37,11 @@ public class Event {
     public Event() {
     }
 
-    public Event(Long id, String name, String location, LocalDate date,  String startTime, String endTime, Boolean flag, Customer customer,String content) {
+    public Event(Long id, String name, String location, String content, Date startTime, Date endTime, Boolean flag, Customer customer) {
         this.id = id;
         this.name = name;
         this.location = location;
         this.content = content;
-        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.flag = flag;
@@ -75,36 +72,28 @@ public class Event {
         this.location = location;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getContent() {
+        return content;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public Boolean getFlag() {
@@ -115,11 +104,11 @@ public class Event {
         this.flag = flag;
     }
 
-    public String getContent() {
-        return content;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
