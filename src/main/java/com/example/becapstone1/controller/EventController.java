@@ -213,11 +213,13 @@ public class EventController {
         }
     }
 
-    /** Get list user by event id ADROID. */
+    /** Get list user by account id ADROID. */
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @GetMapping("/userByEvent1")
-    public ResponseEntity<List<User>> getUserByEvent1 (@RequestParam("id") Long id) {
-        List<User> users = userService.getListUserByEvent(id);
+    @GetMapping("/userByAccount")
+    public ResponseEntity<List<User>> getUserByEvent1 (@RequestParam("accountId") Long id) {
+        Customer customer = customerService.findByAccountId(id);
+        Event event = eventService.getEventCheckin(customer.getId());
+        List<User> users = userService.getListUserByEvent(event.getId());
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
