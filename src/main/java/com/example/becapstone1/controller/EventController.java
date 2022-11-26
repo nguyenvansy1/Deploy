@@ -217,10 +217,14 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @GetMapping("/userByAccount")
     public ResponseEntity<List<User>> getUserByEvent1 (@RequestParam("accountId") Long id) {
-        Customer customer = customerService.findByAccountId(id);
-        Event event = eventService.getEventCheckin(customer.getId());
-        List<User> users = userService.getListUserByEvent(event.getId());
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        try {
+            Customer customer = customerService.findByAccountId(id);
+            Event event = eventService.getEventCheckin(customer.getId());
+            List<User> users = userService.getListUserByEvent(event.getId());
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
