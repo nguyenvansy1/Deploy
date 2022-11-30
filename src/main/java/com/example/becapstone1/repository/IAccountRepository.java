@@ -12,7 +12,7 @@ import java.util.Optional;
 @Transactional
 public interface IAccountRepository extends JpaRepository<Account,Long> {
 //    and account_role.role_id = 1
-    @Query(value = "SELECT * FROM account join account_role on account.account_id = account_role.account_id WHERE account.account_username =?1 ", nativeQuery = true)
+    @Query(value = "SELECT * FROM account join account_role on account.account_id = account_role.account_id WHERE account.account_username =?1 and account_flag = 1", nativeQuery = true)
     Account findAccountByUsername(String username);
 
 

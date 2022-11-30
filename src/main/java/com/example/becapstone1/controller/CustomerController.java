@@ -2,8 +2,10 @@ package com.example.becapstone1.controller;
 
 import com.example.becapstone1.dto.CustomerDTO;
 import com.example.becapstone1.model.event.Customer;
+import com.example.becapstone1.model.user.User;
 import com.example.becapstone1.service.Impl.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,7 +47,7 @@ public class CustomerController {
     /** Add Customer. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<?> updateCustomer(@RequestBody CustomerDTO customer) {
+    public ResponseEntity<?>addCustomer(@RequestBody CustomerDTO customer) {
         try{
             customerService.addCustomer(customer);
             return new ResponseEntity<>(HttpStatus.CREATED);
@@ -55,4 +57,28 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    /** Get list customer page. */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/listPage")
+    public ResponseEntity<Page<Customer>> getAllCustomer(@RequestParam("page") Integer page,
+                                                 @RequestParam("size") Integer size) {
+        try {
+            Page<Customer> customers= customerService.getAllCustomer(page, size);
+            return new ResponseEntity<>(customers,HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    /** Find customer by name . */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/filter")
+    public ResponseEntity<Page<Customer>> getAllByName(@RequestParam("page") Integer page,
+                                                             @RequestParam("size") Integer size , @RequestParam("name") String name) {
+        Page<Customer> customers = customerService.getByName(name,page,size);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
 }

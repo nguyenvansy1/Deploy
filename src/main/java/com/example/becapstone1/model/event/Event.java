@@ -21,10 +21,10 @@ public class Event {
     @Column(name = "event_content")
     private String content;
 
-    @Column(name = "event_start_time",columnDefinition = "Time")
+    @Column(name = "event_start_time")
     private Date startTime;
 
-    @Column(name = "event_end_time",columnDefinition = "Time")
+    @Column(name = "event_end_time")
     private Date endTime;
 
     @Column(name = "event_flag")

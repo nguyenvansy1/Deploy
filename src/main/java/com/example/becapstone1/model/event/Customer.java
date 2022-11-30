@@ -14,6 +14,12 @@ public class Customer {
     @Column(name = "customer_name")
     private String name;
 
+    @Column(name = "customer_address")
+    private String address;
+
+    @Column(name = "customer_avatar")
+    private String avatar;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_account_id")
     private Account account;
@@ -21,15 +27,18 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String name, Account account) {
+    public Customer(Long id, String name, String address, Account account) {
         this.id = id;
         this.name = name;
+        this.address = address;
         this.account = account;
     }
 
-    public Customer( String name, Account account) {
+    public Customer(String name, Account account,String avatar,String address) {
         this.name = name;
         this.account = account;
+        this.avatar = avatar;
+        this.address = address;
     }
 
     public Long getId() {
@@ -54,5 +63,21 @@ public class Customer {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

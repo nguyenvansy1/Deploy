@@ -4,14 +4,18 @@ public class CustomerDTO {
     private Long id;
     private String name;
     private String email;
+    private String avatar;
+    private String address;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id, String name, String email) {
+    public CustomerDTO(Long id, String name, String email, String avatar, String address) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.avatar = avatar;
+        this.address = address;
     }
 
     public Long getId() {
@@ -36,5 +40,21 @@ public class CustomerDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
