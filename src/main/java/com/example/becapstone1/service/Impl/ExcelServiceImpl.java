@@ -2,16 +2,52 @@ package com.example.becapstone1.service.Impl;
 
 import com.example.becapstone1.model.event.EventUser;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class ExcelServiceImpl {
+    @Autowired
+    private EventUserService eventUserService;
+
+    public void importData(String path , String id) {
+        try {
+            String excelPath = "D:\\data\\"+path;
+            System.out.println(excelPath);
+            XSSFWorkbook workbook = new XSSFWorkbook(excelPath);
+            XSSFSheet sheet = workbook.getSheet("Event Statistical");
+            int rowCount = sheet.getPhysicalNumberOfRows();
+            String[] studentList = new String[rowCount];
+            DataFormatter formatter = new DataFormatter();
+            for (int i = 1 ; i <rowCount ; i++) {
+                String value = formatter.formatCellValue(sheet.getRow(i).getCell(1));
+                studentList[i-1] = value;
+            }
+            for (int i =0 ; i <studentList.length; i++) {
+                Date date = new Date();
+                SimpleDateFormat format = new SimpleDateFormat(
+                        "yyyy-MM-dd HH:mm:ss");
+                EventUser eventUser = eventUserService.getEventUserByEventAndUser(Long.parseLong(id),Long.parseLong(studentList[i]));
+                if (eventUser == null) {
+                    eventUserService.addEventUser(format.format(date),Long.parseLong(id),Long.parseLong(studentList[i]));
+                }
+            }
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
 
     public ByteArrayInputStream export(List<EventUser> eventUsers) throws IOException {
         String[] columns = {"STT","User Code","User Name","User Class"};

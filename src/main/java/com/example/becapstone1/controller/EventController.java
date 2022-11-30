@@ -61,7 +61,7 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/list")
     public ResponseEntity<Page<Event>> getAllUser(@RequestParam("page") Integer page,
-                                                 @RequestParam("size") Integer size) {
+                                                  @RequestParam("size") Integer size) {
         Page<Event> events = eventService.getAllEvent(page, size);
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
@@ -124,7 +124,7 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/eventByUser")
     public ResponseEntity<Page<EventUser>> getEventByUser(@RequestParam("page") Integer page,
-                                                     @RequestParam("size") Integer size,@RequestParam("code") Long code) {
+                                                          @RequestParam("size") Integer size,@RequestParam("code") Long code) {
         try {
             Page<EventUser> events = eventUserService.getListEventByUser(code,page,size);
             return new ResponseEntity<>(events, HttpStatus.OK);
@@ -137,7 +137,7 @@ public class EventController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/userByEvent")
     public ResponseEntity<Page<EventUser>> getUserByEvent(@RequestParam("page") Integer page,
-                                                         @RequestParam("size") Integer size,@RequestParam("id") Long id) {
+                                                          @RequestParam("size") Integer size,@RequestParam("id") Long id) {
         Page<EventUser> users = eventUserService.getListUserByEvent(id,page,size);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -219,10 +219,12 @@ public class EventController {
     public ResponseEntity<List<User>> getUserByEvent1 (@RequestParam("accountId") Long id) {
         try {
             Customer customer = customerService.findByAccountId(id);
+            System.out.println(customer);
             Event event = eventService.getEventCheckin(customer.getId());
             List<User> users = userService.getListUserByEvent(event.getId());
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
@@ -249,19 +251,12 @@ public class EventController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/import/{list}/{id}")
-    public ResponseEntity<?> importUser(@PathVariable("list") String list ,@PathVariable("id") String id) {
+    @GetMapping("/import/{path}/{id}")
+    public ResponseEntity<?> importUser(@PathVariable("path") String path ,@PathVariable("id") String id) {
         try {
-            for (int i = 0;i<list.length()/11;i++) {
-                String newString = list.substring(11*i,11*i+11);
-                Date date = new Date();
-                SimpleDateFormat format = new SimpleDateFormat(
-                        "yyyy-MM-dd HH:mm:ss");
-                EventUser eventUser = eventUserService.getEventUserByEventAndUser(Long.parseLong(id),Long.parseLong(newString));
-                if (eventUser == null) {
-                    eventUserService.addEventUser(format.format(date),Long.parseLong(id),Long.parseLong(newString));
-                }
-            }
+            System.out.println(id);
+            System.out.println(path);
+            excelService.importData(path, id);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e)
         {

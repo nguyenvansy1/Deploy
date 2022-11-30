@@ -143,7 +143,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/filter")
     public ResponseEntity<Page<User>> getAllUserByCodeOrName(@RequestParam("page") Integer page,
-                                                       @RequestParam("size") Integer size , @RequestParam("name") String name) {
+                                                             @RequestParam("size") Integer size , @RequestParam("name") String name) {
         Page<User> users = userService.getByCodeOrName(name,page,size);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -180,7 +180,7 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/updateAvatar")
     public ResponseEntity<?> updateAvatar(@RequestParam("avatar") String avatar,
-                                                 @RequestParam("code") Long code) {
+                                          @RequestParam("code") Long code) {
         try {
             userService.updateAvatar(avatar, code);
             return new ResponseEntity<>(HttpStatus.OK);

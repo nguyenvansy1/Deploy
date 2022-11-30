@@ -21,16 +21,16 @@ public interface IEventRepository extends JpaRepository<Event,Long> {
             "order by month(event_start_time);", nativeQuery = true)
     Integer[][] getDataEvent();
 
-    @Query(value = "select * from event where event_end_time < STR_TO_DATE(NOW(), '%Y-%m-%d %H:%i:%s');", nativeQuery = true)
+    @Query(value = "select * from event where event_end_time <= CONVERT_TZ(now(),'+00:00','+7:00');", nativeQuery = true)
     List<Event> getListEventFinished();
 
-    @Query(value = "select * from event where event_end_time > STR_TO_DATE(NOW(), '%Y-%m-%d %H:%i:%s');", nativeQuery = true)
+    @Query(value = "select * from event where event_end_time >= CONVERT_TZ(now(),'+00:00','+7:00');", nativeQuery = true)
     List<Event> getListEventUpcoming();
 
     @Modifying
     @Query(value = "update event set event_flag=0 where event_id=:id", nativeQuery = true)
     void deleteEventByFlag(@Param("id") Long id);
 
-    @Query(value = "select * from event where event_customer_id = :id and event_start_time < current_timestamp() and event_end_time > current_timestamp();", nativeQuery = true)
+    @Query(value = "select * from event where event_customer_id = :id and event_start_time <= CONVERT_TZ(now(),'+00:00','+7:00') and event_end_time >= CONVERT_TZ(now(),'+00:00','+7:00');", nativeQuery = true)
     Event getEventCheckin(@Param("id") Long id);
 }
