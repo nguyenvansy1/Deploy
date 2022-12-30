@@ -7,7 +7,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Account {
     private String verificationCode;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinTable(name = "account_role",
+    @JoinTable(name = "account_roles",
             joinColumns = {
                     @JoinColumn(name = "account_id")
             },

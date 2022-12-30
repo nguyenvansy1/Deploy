@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface IAccountRoleRepository extends JpaRepository<AccountRole,Long> {
     @Modifying
-    @Query(value = "insert into account_role(account_id,role_id) values (:id,2)", nativeQuery = true)
+    @Query(value = "insert into account_roles(account_id,role_id) values (:id,2)", nativeQuery = true)
     void addAccountRole(@Param("id") Long id);
 
 }

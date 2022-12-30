@@ -60,9 +60,17 @@ public class EventController {
     /** Get list event. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/list")
-    public ResponseEntity<Page<Event>> getAllUser(@RequestParam("page") Integer page,
+    public ResponseEntity<Page<Event>> getListEvent(@RequestParam("page") Integer page,
                                                   @RequestParam("size") Integer size) {
         Page<Event> events = eventService.getAllEvent(page, size);
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
+    /** Get list event 2. */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/list2")
+    public ResponseEntity<List<Event>> getListEvent2() {
+        List<Event> events = eventService.getListEvent();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 

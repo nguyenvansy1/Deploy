@@ -25,4 +25,6 @@ public interface IEventService {
     void deleteEventByFlag( Long id);
 
     Event getEventCheckin( Long id);
+
+    List<Event> getListEvent();
 }

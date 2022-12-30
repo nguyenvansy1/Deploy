@@ -3,7 +3,7 @@ package com.example.becapstone1.model.account;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "account_role")
+@Table(name = "account_roles")
 public class AccountRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

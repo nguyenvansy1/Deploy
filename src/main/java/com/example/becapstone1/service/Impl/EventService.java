@@ -107,4 +107,9 @@ public class EventService implements IEventService {
     public Event getEventCheckin(Long id) {
         return iEventRepository.getEventCheckin(id);
     }
+
+    @Override
+    public List<Event> getListEvent() {
+        return iEventRepository.getListEvent();
+    }
 }

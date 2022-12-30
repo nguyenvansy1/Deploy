@@ -12,11 +12,11 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ICustomerRepository extends JpaRepository<Customer,Long> {
-    @Query(value = "select * from customer where customer_account_id = :id", nativeQuery = true)
+    @Query(value = "select * from customers where customer_account_id = :id", nativeQuery = true)
     Customer findByAccountId(@Param("id") Long id );
 
     Page<Customer> findAll(Pageable pageable);
 
-    @Query(value = "Select * from customer where customer_name like BINARY :name", nativeQuery = true)
+    @Query(value = "Select * from customers where customer_name like BINARY :name", nativeQuery = true)
     Page<Customer> findByNameContaining(@Param("name") String name, Pageable pageable);
 }

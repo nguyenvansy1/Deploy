@@ -18,33 +18,33 @@ import java.util.List;
 @Transactional
 public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
 
-    @Query(value = "select * from event_user\n" +
+    @Query(value = "select * from event_users\n" +
             "where user_id =:id", nativeQuery = true)
     Page<EventUser> getListEventByUser(@Param("id") Long id, Pageable pageable);
 
-    @Query(value = "select * from event_user\n" +
+    @Query(value = "select * from event_users\n" +
             "where event_id = :id", nativeQuery = true)
     Page<EventUser> getListUserByEvent(@Param("id") Long id, Pageable pageable);
 
-    @Query(value = "select * from event_user\n" +
+    @Query(value = "select * from event_users\n" +
             "where event_id = :id", nativeQuery = true)
     List<EventUser> getListUserByEvent1(@Param("id") Long id);
 
 
 
-    @Query(value = "SELECT * FROM event_user where event_id = :id and user_id= :code", nativeQuery = true)
+    @Query(value = "SELECT * FROM event_users where event_id = :id and user_id= :code", nativeQuery = true)
     EventUser getEventUserByEventAndUser(@Param("id") Long idEvent, @Param("code") Long idUser);
 
     @Modifying
-    @Query(value = "insert into event_user (event_time_checkin,event_user_status,event_id,user_id) values (?1,1,?2,?3)", nativeQuery = true)
+    @Query(value = "insert into event_users (event_time_checkin,event_user_status,event_id,user_id) values (?1,1,?2,?3)", nativeQuery = true)
     void addEventUser(String time, Long id, Long code);
 
-    @Query(value = "select * from event_user where month(event_time_checkin) = month(now()) and year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
+    @Query(value = "select * from event_users where month(event_time_checkin) = month(now()) and year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
     List<EventUser> filterDay();
 
-    @Query(value = "select * from event_user where year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
+    @Query(value = "select * from event_users where year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
     List<EventUser> filterMonth();
 
-    @Query(value = "select * from event_user order by event_time_checkin DESC", nativeQuery = true)
+    @Query(value = "select * from event_users order by event_time_checkin DESC", nativeQuery = true)
     List<EventUser> filterYear();
 }

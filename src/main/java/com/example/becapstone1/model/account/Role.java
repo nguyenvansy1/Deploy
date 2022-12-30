@@ -3,6 +3,7 @@ package com.example.becapstone1.model.account;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

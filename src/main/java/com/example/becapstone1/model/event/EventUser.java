@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "event_user")
+@Table(name = "event_users")
 public class EventUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

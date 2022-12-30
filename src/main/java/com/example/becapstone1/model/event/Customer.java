@@ -5,6 +5,7 @@ import com.example.becapstone1.model.account.Account;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
