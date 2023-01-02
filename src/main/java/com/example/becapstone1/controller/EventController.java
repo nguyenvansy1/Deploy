@@ -80,6 +80,7 @@ public class EventController {
     public ResponseEntity<?> addEvent(@RequestBody Event event) {
         try{
             event.setFlag(true);
+            System.out.println(event.getCustomer().getId());
             eventService.addEvent(event);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }catch (Exception e)
