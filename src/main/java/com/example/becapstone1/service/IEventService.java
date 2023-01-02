@@ -14,7 +14,7 @@ public interface IEventService {
 
     void addEvent(Event event);
 
-    Integer[] getDataEvent();
+    Integer[] getDataEvent(Integer year);
 
     List<Event> getListEventFinished();
 
@@ -27,4 +27,6 @@ public interface IEventService {
     Event getEventCheckin( Long id);
 
     List<Event> getListEvent();
+
+    List<Event> getListEventByCustomer(Long id);
 }

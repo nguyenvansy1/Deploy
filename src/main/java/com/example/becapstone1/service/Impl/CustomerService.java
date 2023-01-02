@@ -38,7 +38,7 @@ public class CustomerService implements ICustomerService {
     private IAccountRepository iAccountRepository;
     @Override
     public void addCustomer(CustomerDTO customer) throws IOException {
-        Account account = new Account(customer.getName(),customer.getEmail(),true);
+        Account account = new Account(customer.getName(),"Ssy12345679@",customer.getEmail(),true);
         Customer customer1 = new Customer(customer.getName(),account,customer.getAvatar(),customer.getAddress());
         iCustomerRepository.save(customer1);
         Account account1 = iAccountRepository.findAccountByUsername1(customer.getName());

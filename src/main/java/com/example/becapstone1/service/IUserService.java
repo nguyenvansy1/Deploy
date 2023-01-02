@@ -19,7 +19,7 @@ public interface IUserService {
     
     Page<User> getByCodeOrName(String name, Integer page, Integer size);
 
-    Integer[] getDataUser();
+    Integer[] getDataUser(Integer year);
 
     Integer getAmountUser();
 
@@ -28,4 +28,6 @@ public interface IUserService {
     List<User> getListUserByEvent(Long id);
 
     void updateAvatar(String avatar , Long code );
+
+    User findUserByCode2(Long code);
 }

@@ -47,4 +47,6 @@ public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
 
     @Query(value = "select * from event_users order by event_time_checkin DESC", nativeQuery = true)
     List<EventUser> filterYear();
+
+
 }

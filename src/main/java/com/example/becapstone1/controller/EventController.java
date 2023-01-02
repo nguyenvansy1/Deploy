@@ -5,6 +5,7 @@ import com.example.becapstone1.model.event.Customer;
 import com.example.becapstone1.model.event.Event;
 import com.example.becapstone1.model.event.EventUser;
 import com.example.becapstone1.model.user.User;
+import com.example.becapstone1.payload.response.ResponseMessage;
 import com.example.becapstone1.service.Impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -79,13 +80,26 @@ public class EventController {
     @PostMapping("/add")
     public ResponseEntity<?> addEvent(@RequestBody Event event) {
         try{
+            boolean check = true;
             event.setFlag(true);
-            System.out.println(event.getCustomer().getId());
-            eventService.addEvent(event);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            List<Event> events = eventService.getListEventByCustomer(event.getCustomer().getId());
+            for (Event event1 : events) {
+                if ((event.getStartTime().before(event1.getStartTime()) == true && event.getEndTime().before(event1.getStartTime()) == true) ||
+                        (event.getStartTime().after(event1.getEndTime()) == true && event.getEndTime().after(event1.getEndTime()) == true) ) {
+                     check = true;
+                } else {
+                    check = false;
+                    break;
+                }
+            }
+            if (check) {
+                eventService.addEvent(event);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>(new ResponseMessage("The event time has duplicated!"),HttpStatus.BAD_REQUEST);
+            }
         }catch (Exception e)
         {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -105,9 +119,9 @@ public class EventController {
 
     /** Get data event. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/dataEvent")
-    public ResponseEntity<?> getData() {
-        Integer[] data = eventService.getDataEvent();
+    @GetMapping("/dataEvent/{year}")
+    public ResponseEntity<?> getData(@PathVariable("year") Integer year) {
+        Integer[] data = eventService.getDataEvent(year);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -260,15 +274,25 @@ public class EventController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/import/{path}/{id}")
-    public ResponseEntity<?> importUser(@PathVariable("path") String path ,@PathVariable("id") String id) {
+    @GetMapping("/import2/{path}/{id}")
+    public ResponseEntity<?> importUser(@PathVariable("path") Long[] path,@PathVariable("id") String id) {
         try {
-            System.out.println(id);
-            System.out.println(path);
-            excelService.importData(path, id);
+            for (int i=0 ; i< path.length;i++) {
+                User user = userService.findUserByCode2(path[i]);
+                if (user !=  null) {
+                    Date date = new Date();
+                    SimpleDateFormat format = new SimpleDateFormat(
+                            "yyyy-MM-dd HH:mm:ss");
+                    EventUser eventUser = eventUserService.getEventUserByEventAndUser(Long.parseLong(id),path[i]);
+                    if (eventUser == null) {
+                        eventUserService.addEventUser(format.format(date),Long.parseLong(id),path[i]);
+                    }
+                }
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e)
         {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

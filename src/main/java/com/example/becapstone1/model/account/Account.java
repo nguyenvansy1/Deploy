@@ -52,10 +52,11 @@ public class Account {
         this.verificationCode = verificationCode;
     }
 
-    public Account(String username, String email, Boolean flag) {
+    public Account(String username,String password , String email, Boolean flag) {
         this.username = username;
         this.email = email;
         this.flag = flag;
+        this.password = password;
     }
 
     public String getUsername() {

@@ -23,10 +23,10 @@ public interface IUserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select month(event_end_time) as Month , count(event_end_time) as Times  from event_users\n" +
             "left join events on event_users.event_id = events.event_id\n" +
-            "where year(event_end_time) = year(curdate())\n" +
+            "where year(event_end_time) = :year\n" +
             "group by month(event_end_time)\n" +
             "order by month(event_end_time);", nativeQuery = true)
-    Integer[][] getDataUser();
+    Integer[][] getDataUser(@Param("year") Integer year);
 
     @Query(value = "select count(user_id) as Amount_Student from event_users\n" +
             "group by user_id;", nativeQuery = true)
@@ -56,6 +56,10 @@ public interface IUserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select * from users where user_identity_card = :id && user_code != :code", nativeQuery = true)
     User findUserByIdCard(@Param("id") Integer id, @Param("code") Long code);
+
+
+    @Query(value = "select * from users where user_code = :code", nativeQuery = true)
+    User findUserByCode(@Param("code") Long code);
 }
 
 

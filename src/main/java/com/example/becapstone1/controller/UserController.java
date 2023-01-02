@@ -162,9 +162,9 @@ public class UserController {
 
     /** Get data user join event by month. */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/dataUser")
-    public ResponseEntity<?> getData() {
-        Integer[] data = userService.getDataUser();
+    @GetMapping("/dataUser/{year}")
+    public ResponseEntity<?> getData(@PathVariable("year") Integer year) {
+        Integer[] data = userService.getDataUser(year);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 

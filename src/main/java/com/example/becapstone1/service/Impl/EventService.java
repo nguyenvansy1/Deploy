@@ -50,21 +50,21 @@ public class EventService implements IEventService {
             dataMail.setSubject("Event DTU");
             Map<String, Object> props = new HashMap<>();
             props.put("username", event.getCustomer().getName());
-            props.put("password", "123456");
+            props.put("password", "Ssy123456789@");
             dataMail.setProps(props);
             dataMailService.sendMail(dataMail,"Mail");
             System.out.println("Send Mail pass");
         } catch (MessagingException exp){
             exp.printStackTrace();
         }
-        String passwordEncode = new BCryptPasswordEncoder().encode("123456");
+        String passwordEncode = new BCryptPasswordEncoder().encode("Ssy123456789@");
         iAccountRepository.changePassword(event.getCustomer().getAccount().getAccountId(),passwordEncode);
         iEventRepository.save(event);
     }
 
     @Override
-    public Integer[] getDataEvent() {
-        Integer[][] data = iEventRepository.getDataEvent();
+    public Integer[] getDataEvent(Integer year) {
+        Integer[][] data = iEventRepository.getDataEvent(year);
         Integer[] arr = new Integer[12];
         for (int i = 1 ; i<=12; i++){
             for(int row = 0; row < data.length; row++) {
@@ -112,4 +112,10 @@ public class EventService implements IEventService {
     public List<Event> getListEvent() {
         return iEventRepository.getListEvent();
     }
+
+    @Override
+    public List<Event> getListEventByCustomer(Long id) {
+        return iEventRepository.getListEventByCustomer(id);
+    }
+
 }

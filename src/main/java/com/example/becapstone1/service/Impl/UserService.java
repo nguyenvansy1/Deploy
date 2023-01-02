@@ -54,8 +54,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Integer[] getDataUser() {
-        Integer[][] data = userRepository.getDataUser();
+    public Integer[] getDataUser(Integer year) {
+        Integer[][] data = userRepository.getDataUser(year);
         Integer[] arr = new Integer[12];
         for (int i = 1 ; i<=12; i++){
             for(int row = 0; row < data.length; row++) {
@@ -93,5 +93,10 @@ public class UserService implements IUserService {
     @Override
     public void updateAvatar(String avatar, Long code) {
         userRepository.updateAvatar(avatar, code);
+    }
+
+    @Override
+    public User findUserByCode2(Long code) {
+        return userRepository.findUserByCode(code);
     }
 }
