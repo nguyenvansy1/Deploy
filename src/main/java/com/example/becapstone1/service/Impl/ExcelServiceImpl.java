@@ -21,7 +21,8 @@ public class ExcelServiceImpl {
 
     public void importData(String path , String id) {
         try {
-            String excelPath = "D:\\data\\"+path;
+//            String excelPath = "D:\\data\\"+path;
+            String excelPath = "D:\\data\\DAa.xlsx";
             System.out.println(excelPath);
             XSSFWorkbook workbook = new XSSFWorkbook(excelPath);
             XSSFSheet sheet = workbook.getSheet("Event Statistical");
