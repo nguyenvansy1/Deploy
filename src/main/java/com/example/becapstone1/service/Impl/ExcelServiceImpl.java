@@ -63,22 +63,23 @@ public class ExcelServiceImpl {
             Sheet sheet = workbook.createSheet("Event Statistical");
             Row row0 = sheet.createRow(0);
             Cell cell0 = row0.createCell(0);
-            Row row1 = sheet.createRow(0);
-            Cell cell1= row1.createCell(1);
-            Row row2 = sheet.createRow(0);
-            Cell cell2 = row2.createCell(2);
-            Row row3 = sheet.createRow(0);
-            Cell cell3 = row3.createCell(3);
+//            Row row1 = sheet.createRow(0);
+//            Cell cell1 = row1.createCell(1);
+//            Row row2 = sheet.createRow(0);
+//            Cell cell2 = row2.createCell(2);
+//            Row row3 = sheet.createRow(0);
+//            Cell cell3 = row3.createCell(3);
             for (EventUser user: eventUsers) {
                  event = user.getEvent().getName();
                  location = user.getEvent().getLocation();
                  start = user.getEvent().getStartTime().toString();
                  end = user.getEvent().getEndTime().toString();
             }
+            System.out.println(event);
             cell0.setCellValue("Event: " + event);
-            cell1.setCellValue("Location: " + location);
-            cell2.setCellValue("Start: " + start);
-            cell3.setCellValue("End: " + end);
+//            cell1.setCellValue("Location:" + location);
+//            cell2.setCellValue("Start:" + start);
+//            cell3.setCellValue("End:" + end);
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
             headerFont.setColor(IndexedColors.BLUE.getIndex());
@@ -97,14 +98,14 @@ public class ExcelServiceImpl {
             CellStyle cellStyle1 = workbook.createCellStyle();
             cellStyle1.setDataFormat(creationHelper.createDataFormat().getFormat("#"));
 
-//            int rowIndex = 2;
-//            for (EventUser user: eventUsers) {
-//                Row row = sheet.createRow(rowIndex++);
-//                row.createCell(0).setCellValue(rowIndex-1);
-//                row.createCell(1).setCellValue(user.getUser().getCode());
-//                row.createCell(2).setCellValue(user.getUser().getName());
-//                row.createCell(3).setCellValue(user.getCheckin().toString());
-//            }
+            int rowIndex = 2;
+            for (EventUser user: eventUsers) {
+                Row row = sheet.createRow(rowIndex++);
+                row.createCell(0).setCellValue(rowIndex-2);
+                row.createCell(1).setCellValue(user.getUser().getCode());
+                row.createCell(2).setCellValue(user.getUser().getName());
+                row.createCell(3).setCellValue(user.getCheckin().toString());
+            }
 
             workbook.write(out);
             return  new ByteArrayInputStream(out.toByteArray());
