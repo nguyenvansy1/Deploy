@@ -52,10 +52,9 @@ public class ExcelServiceImpl {
 
     public ByteArrayInputStream export(List<EventUser> eventUsers) throws IOException {
         String event = "";
-        String location = "";
-        String start = "";
-        String end = "";
-        String[] columns = {"STT","Code","Name","Time Checkin"};
+
+
+        String[] columns = {"STT","Code","Name","Time Checkin","Status"};
         try(Workbook workbook = new XSSFWorkbook();
             ByteArrayOutputStream out = new ByteArrayOutputStream())
         {
@@ -71,9 +70,6 @@ public class ExcelServiceImpl {
 //            Cell cell3 = row3.createCell(3);
             for (EventUser user: eventUsers) {
                  event = user.getEvent().getName();
-                 location = user.getEvent().getLocation();
-                 start = user.getEvent().getStartTime().toString();
-                 end = user.getEvent().getEndTime().toString();
             }
             System.out.println(event);
             cell0.setCellValue("Event: " + event);
@@ -105,6 +101,12 @@ public class ExcelServiceImpl {
                 row.createCell(1).setCellValue(user.getUser().getCode());
                 row.createCell(2).setCellValue(user.getUser().getName());
                 row.createCell(3).setCellValue(user.getCheckin().toString());
+                if (user.getStatus() == true) {
+                    row.createCell(4).setCellValue("Checkin");
+                } else {
+                    row.createCell(4).setCellValue("Registration");
+                }
+
             }
 
             workbook.write(out);
