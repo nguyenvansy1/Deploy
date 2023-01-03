@@ -97,14 +97,14 @@ public class ExcelServiceImpl {
             CellStyle cellStyle1 = workbook.createCellStyle();
             cellStyle1.setDataFormat(creationHelper.createDataFormat().getFormat("#"));
 
-            int rowIndex = 2;
-            for (EventUser user: eventUsers) {
-                Row row = sheet.createRow(rowIndex++);
-                row.createCell(0).setCellValue(rowIndex-1);
-                row.createCell(1).setCellValue(user.getUser().getCode());
-                row.createCell(2).setCellValue(user.getUser().getName());
-                row.createCell(3).setCellValue(user.getCheckin().toString());
-            }
+//            int rowIndex = 2;
+//            for (EventUser user: eventUsers) {
+//                Row row = sheet.createRow(rowIndex++);
+//                row.createCell(0).setCellValue(rowIndex-1);
+//                row.createCell(1).setCellValue(user.getUser().getCode());
+//                row.createCell(2).setCellValue(user.getUser().getName());
+//                row.createCell(3).setCellValue(user.getCheckin().toString());
+//            }
 
             workbook.write(out);
             return  new ByteArrayInputStream(out.toByteArray());
