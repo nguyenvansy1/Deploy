@@ -36,7 +36,7 @@ public interface IEventUserRepository extends JpaRepository<EventUser, Long> {
     EventUser getEventUserByEventAndUser(@Param("id") Long idEvent, @Param("code") Long idUser);
 
     @Modifying
-    @Query(value = "insert into event_users (event_time_checkin,event_user_status,event_id,user_id) values (CONVERT_TZ(?1,'+00:00','+7:00'),0gi,?2,?3)", nativeQuery = true)
+    @Query(value = "insert into event_users (event_time_checkin,event_user_status,event_id,user_id) values (CONVERT_TZ(?1,'+00:00','+7:00'),0,?2,?3)", nativeQuery = true)
     void addEventUser(String time, Long id, Long code);
 
     @Query(value = "select * from event_users where month(event_time_checkin) = month(now()) and year(event_time_checkin) = year(now()) order by event_time_checkin DESC", nativeQuery = true)
