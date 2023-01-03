@@ -51,14 +51,20 @@ public class ExcelServiceImpl {
     }
 
     public ByteArrayInputStream export(List<EventUser> eventUsers) throws IOException {
-        String[] columns = {"STT","User Code","User Name","User Class"};
+        String event = "";
+
+        String[] columns = {"STT","Code","Name","Time Checkin"};
         try(Workbook workbook = new XSSFWorkbook();
             ByteArrayOutputStream out = new ByteArrayOutputStream())
         {
             CreationHelper creationHelper = workbook.getCreationHelper();
-
             Sheet sheet = workbook.createSheet("Event Statistical");
-
+            Row row0 = sheet.createRow(0);
+            Cell cell0 = row0.createCell(0);
+            for (EventUser user: eventUsers) {
+                 event = user.getEvent().getName();
+            }
+            cell0.setCellValue(event);
             Font headerFont = workbook.createFont();
             headerFont.setBold(true);
             headerFont.setColor(IndexedColors.BLUE.getIndex());
@@ -66,9 +72,9 @@ public class ExcelServiceImpl {
             CellStyle cellStyle = workbook.createCellStyle();
             cellStyle.setFont(headerFont);
 
-            Row headerRow = sheet.createRow(0);
+            Row headerRow = sheet.createRow(1);
 
-            for (int col=0;col <columns.length; col++) {
+            for (int col=1;col <columns.length; col++) {
                 Cell cell = headerRow.createCell(col);
                 cell.setCellValue(columns[col]);
                 cell.setCellStyle(cellStyle);
@@ -83,7 +89,7 @@ public class ExcelServiceImpl {
                 row.createCell(0).setCellValue(rowIndex-1);
                 row.createCell(1).setCellValue(user.getUser().getCode());
                 row.createCell(2).setCellValue(user.getUser().getName());
-                row.createCell(3).setCellValue(user.getUser().getCourse().getName()+"-"+user.getUser().getClassUser().getName());
+                row.createCell(3).setCellValue(user.getCheckin());
             }
 
             workbook.write(out);
