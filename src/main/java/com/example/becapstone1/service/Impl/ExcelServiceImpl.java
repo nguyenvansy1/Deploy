@@ -64,11 +64,11 @@ public class ExcelServiceImpl {
             Row row0 = sheet.createRow(0);
             Cell cell0 = row0.createCell(0);
             Row row1 = sheet.createRow(1);
-            Cell cell1= row0.createCell(0);
+            Cell cell1= row1.createCell(0);
             Row row2 = sheet.createRow(2);
-            Cell cell2 = row0.createCell(0);
+            Cell cell2 = row2.createCell(0);
             Row row3 = sheet.createRow(3);
-            Cell cell3 = row0.createCell(0);
+            Cell cell3 = row3.createCell(0);
             for (EventUser user: eventUsers) {
                  event = user.getEvent().getName();
                  location = user.getEvent().getLocation();
@@ -97,7 +97,7 @@ public class ExcelServiceImpl {
             CellStyle cellStyle1 = workbook.createCellStyle();
             cellStyle1.setDataFormat(creationHelper.createDataFormat().getFormat("#"));
 
-            int rowIndex = 2;
+            int rowIndex = 1;
             for (EventUser user: eventUsers) {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(rowIndex-1);
